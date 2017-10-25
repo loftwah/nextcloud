@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-nextcloud
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - nextc_www:/var/www/
+      - nextc_letsencrypt:/etc/letsencrypt/
+      - nextc_apache2:/etc/apache2/
+      - nextc_log_web:/var/log/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    links:
+      - db
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb:10.1
+    volumes:
+      - nextc_db:/var/lib/mysql/
+      - nextc_db_backup:/srv/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret-to-change
+      MYSQL_DATABASE: nextcloud_db
+      MYSQL_USER: nextcloud_user
+      MYSQL_PASSWORD: secret-to-change
+
+
+volumes:
+  nextc_www:
+  nextc_apache2:
+  nextc_letsencrypt:
+  nextc_db:
+  nextc_db_backup:
+  nextc_log_web:
