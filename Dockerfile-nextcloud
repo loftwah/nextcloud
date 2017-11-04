@@ -1,29 +1,28 @@
-FROM    ubuntu:16.04
+FROM	ubuntu:16.04
 
-RUN     echo -e "\nexport TERM=xterm" >> ~/.bashrc
+RUN 	echo -e "\nexport TERM=xterm" >> ~/.bashrc
 
-ENV     TERM=xterm
+ENV	TERM=xterm
 
-COPY    ./apache-entrypoint.sh /
+COPY	./apache-entrypoint.sh /
 
-RUN     apt-get update && apt-get install -y apt-utils && apt-get upgrade -y && apt-get install -y wget bzip2 software-properties-common
+RUN 	apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends --no-install-suggests wget bzip2
 
-RUN     add-apt-repository -y ppa:certbot/certbot && apt-get update
+RUN	apt-get install -y --no-install-recommends --no-install-suggests apache2 libapache2-mod-php7.0 libapache2-modsecurity \ 
+		php7.0-gd php7.0-json php7.0-mysql php7.0-curl php7.0-mbstring \
+		php7.0-intl php7.0-mcrypt php-imagick php7.0-xml php7.0-zip \
+		php7.0-curl php-mime-type php7.0-bz2 php7.0-intl php7.0-mcrypt php-imagick php7.0-cli
 
-RUN     apt-get install -y apache2 libapache2-mod-php7.0 python-certbot-apache libapache2-modsecurity \
-                php7.0-gd php7.0-json php7.0-mysql php7.0-curl php7.0-mbstring \
-                php7.0-intl php7.0-mcrypt php-imagick php7.0-xml php7.0-zip \
-                php7.0-curl php-mime-type php7.0-bz2 php7.0-intl php7.0-mcrypt php-imagick php7.0-cli
+RUN    apt-get purge -y --auto-remove
 
-RUN     apt autoremove -y && apt-get clean
+RUN    rm -rf /var/lib/apt/lists/*
 
-RUN     chmod o+x /apache-entrypoint.sh
+RUN	chmod o+x /apache-entrypoint.sh
 
 VOLUME  /etc/apache2/
 VOLUME  /etc/letsencrypt/
-VOLUME  /var/www/
+VOLUME	/var/www/
 
-EXPOSE  80
-EXPOSE  443
+EXPOSE 	80
 
 ENTRYPOINT /apache-entrypoint.sh
