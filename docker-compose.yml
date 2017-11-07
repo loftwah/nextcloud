@@ -3,7 +3,6 @@ version: "3.1"
 services:
 
   rp:
-#    command: sleep 1000000000000
     build:
       context: .
       dockerfile: Dockerfile-nginx
@@ -25,7 +24,7 @@ services:
     image: certbot/certbot
     command: certonly --dry-run
     volumes:
-      - nextc_certbot:/var/www/certbot
+      - nextc_certbot:/var/www/certbot/
       - nextc_letsencrypt:/etc/letsencrypt/
 
   fpm:
@@ -34,7 +33,7 @@ services:
       dockerfile: Dockerfile-fpm    
     volumes:
       - nextc_data:/var/www/
-      - nextc_fpm:/etc/php
+      - nextc_fpm:/etc/php/
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     links:
@@ -42,7 +41,6 @@ services:
     depends_on:
       - db
     restart: always
-
 
   web:
     build:
@@ -92,4 +90,3 @@ volumes:
   nextc_certbot:
   nextc_fpm:
   nextc_data:
-
