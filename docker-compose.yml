@@ -3,51 +3,48 @@ version: "3.1"
 services:
 
   rp:
-#    command: sleep 1000000000000
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
+    image: dockerownc_rp
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-nginx
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - nextc_letsencrypt:/etc/letsencrypt/
       - nextc_nginx-rp:/etc/nginx/
-      - nextc_certbot:/var/www/certbot
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - nextc_data:/var/www/
-    links:
-      - web
-    restart: always
 
-  certbot:
-    image: certbot/certbot
-    command: certonly --dry-run
-    volumes:
-      - nextc_certbot:/var/www/certbot
-      - nextc_letsencrypt:/etc/letsencrypt/
+#  certbot:
+#    image: certbot/certbot
+#    command: certonly --webroot -w /var/www/letsencrypt -d 1nfr.com
+#    volumes:
+#      - nextc_data:/var/www/
+#      - nextc_letsencrypt:/etc/letsencrypt/
 
-  fpm:
-    build:
-      context: .
-      dockerfile: Dockerfile-fpm    
-    volumes:
-      - nextc_data:/var/www/
-      - nextc_fpm:/etc/php
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    links:
-      - db
-    depends_on:
-      - db
-    restart: always
+#  fpm:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-fpm    
+#    volumes:
+#      - nextc_data:/var/www/
+#      - nextc_fpm:/etc/php
+#      - /etc/timezone:/etc/timezone:ro
+#      - /etc/localtime:/etc/localtime:ro
+#    links:
+#      - db
+#    depends_on:
+#      - db
+#    restart: always
 
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile-nextcloud
+    image: dockerownc_web
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-nextcloud
     volumes:
       - nextc_www:/var/www/
       - nextc_letsencrypt:/etc/letsencrypt/
@@ -55,11 +52,10 @@ services:
       - nextc_log_web:/var/log/
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    links:
-      - db
     depends_on:
       - db
-    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
 
   db:
     image: mariadb:10.1
@@ -68,7 +64,6 @@ services:
       - nextc_db_backup:/srv/
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    restart: always
     secrets:
       - db_pwd 
     environment:
@@ -89,7 +84,6 @@ volumes:
   nextc_db_backup:
   nextc_log_web:
   nextc_nginx-rp:
-  nextc_certbot:
   nextc_fpm:
   nextc_data:
 
