@@ -3,16 +3,10 @@ version: "3.1"
 services:
 
   rp:
-<<<<<<< HEAD
     image: dockerownc_rp
 #    build:
 #      context: .
 #      dockerfile: Dockerfile-nginx
-=======
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
->>>>>>> 1f6d60edd8653c5ddf0a0401ad99079d4c76f760
     ports:
       - "80:80"
       - "443:443"
@@ -23,7 +17,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - nextc_data:/var/www/
 
-<<<<<<< HEAD
 #  certbot:
 #    image: certbot/certbot
 #    command: certonly --webroot -w /var/www/letsencrypt -d 1nfr.com
@@ -45,29 +38,6 @@ services:
 #    depends_on:
 #      - db
 #    restart: always
-=======
-  certbot:
-    image: certbot/certbot
-    command: certonly --dry-run
-    volumes:
-      - nextc_certbot:/var/www/certbot/
-      - nextc_letsencrypt:/etc/letsencrypt/
-
-  fpm:
-    build:
-      context: .
-      dockerfile: Dockerfile-fpm    
-    volumes:
-      - nextc_data:/var/www/
-      - nextc_fpm:/etc/php/
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    links:
-      - db
-    depends_on:
-      - db
-    restart: always
->>>>>>> 1f6d60edd8653c5ddf0a0401ad99079d4c76f760
 
   web:
     image: dockerownc_web
