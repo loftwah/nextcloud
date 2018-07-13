@@ -1,9 +1,9 @@
 FROM nginx:1.13
 
 RUN apt-get update && apt-get upgrade -y \
-  apt-get install -y --no-install-suggests nginx-extras \
-  apt-get purge -y --auto-remove \
-  rm -rf /var/lib/apt/lists/*
+  && apt-get install -y --no-install-suggests nginx-extras curl \
+  && apt-get purge -y --auto-remove \
+  && rm -rf /var/lib/apt/lists/*
 
 VOLUME /etc/letsencrypt/
 VOLUME /etc/nginx/
