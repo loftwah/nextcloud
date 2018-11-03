@@ -1,4 +1,4 @@
-FROM nginx:1.13
+FROM nginx:1.15
 
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install -y --no-install-suggests nginx-extras curl \
