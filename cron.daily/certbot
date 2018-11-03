@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run -d -it --rm -v dockerownc_nextc_certbot_root:/var/www/ -v dockerownc_nextc_certbot_log:/var/log/ -v dockerownc_nextc_letsencrypt:/etc/letsencrypt/ certbot/certbot certonly --webroot --agree-tos --keep -d 1nfr.com -w /var/www/ >> /var/log/syslog
