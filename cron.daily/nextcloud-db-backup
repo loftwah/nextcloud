@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DID=$(docker ps | grep dockerownc_db | cut -c-12)
+
+docker exec $DID /srv/dump-mysql.sh
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#docker pull ubuntu:16.04 > /var/log/syslog 2> /var/log/syslog
+#docker pull nginx:1.13  > /var/log/syslog 2> /var/log/syslog
+docker pull mariadb:10.1  >> /var/log/syslog 2> /var/log/syslog
+docker pull certbot/certbot >> /var/log/syslog 2> /var/log/syslog
+
+# docker-compose -f /srv/nextcloud/docker-compose.yml build  > /var/log/syslog 2> /var/log/syslog
