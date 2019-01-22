@@ -20,7 +20,7 @@ services:
       - nextc_nginx-rp:/etc/nginx/
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-
+      - nextc_certbot_root:/var/www/
 
   web:
     image: leschard/nextcloud
@@ -75,3 +75,4 @@ volumes:
   nextc_log_web:
   nextc_nginx-rp:
   nextc_fpm:
+  nextc_certbot_root:
