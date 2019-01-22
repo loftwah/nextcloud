@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.4"
 
 services:
 
@@ -12,6 +12,9 @@ services:
         limits:
           cpus: '2'
           memory: 100M
+      update_config:
+        order: start-first
+        failure_action: rollback
     ports:
       - "80:80"
       - "443:443"
