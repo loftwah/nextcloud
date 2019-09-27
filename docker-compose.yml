@@ -43,6 +43,11 @@ services:
         limits:
           cpus: '3'
           memory: 400M
+      update_config:
+        order: start-first
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
     volumes:
       - nextc_www:/var/www/
       - nextc_letsencrypt:/etc/letsencrypt/
@@ -76,6 +81,9 @@ services:
       MYSQL_PASSWORD_FILE: /run/secrets/db_pwd
     networks:
       - nc_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-p$$(cat /var/run/secrets/db_pwd)"]
+
 
 networks:
   int_net:
