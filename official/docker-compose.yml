@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
 
-  web:
+  web-nc:
     image: nextcloud:15
 #    build:
 #      context: .
@@ -22,7 +22,7 @@ services:
       - apps:/var/www/html/apps/
       - config:/var/www/html/config/
 #      - nextc_letsencrypt:/etc/letsencrypt/
-#      - nextc_apache2:/etc/apache2/
+      - etc_apache2:/etc/apache2/
       - log_web:/var/log/
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -30,8 +30,9 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost"]
     networks:
       - nc_net
+      - int_net
 
-  db:
+  db-nc:
     image: mariadb:10.4
     deploy:
       resources:
@@ -70,8 +71,8 @@ volumes:
   data:
   apps:
   config:
-  #nextc_apache2:
-  #nextc_letsencrypt:
+  etc_apache2:
+  #inextc_letsencrypt:
   db:
   db_backup:
   log_web:
