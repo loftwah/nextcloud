@@ -1,8 +1,7 @@
 FROM nginx:1.17
 
-RUN apt-get update && apt-get upgrade -y \
-  && apt-get install -y --no-install-suggests nginx-extras curl \
-  && apt-get purge -y --auto-remove \
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends --no-install-suggests curl \
   && rm -rf /var/lib/apt/lists/*
 
 VOLUME /etc/letsencrypt/
