@@ -39,13 +39,17 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '3'
-          memory: 400M
+          cpus: '2'
+          memory: 200M
+        reservations:
+          memory: 200M
       update_config:
         order: start-first
         failure_action: rollback
       restart_policy:
         condition: on-failure
+        max_attempts: 5
+        delay: 3s
     volumes:
       - nextc_www:/var/www/
       - nextc_letsencrypt:/etc/letsencrypt/
@@ -63,8 +67,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '3'
-          memory: 300M
+          cpus: '2'
+          memory: 200M
+        reservations:
+          memory: 200M
     volumes:
       - nextc_db:/var/lib/mysql/
       - nextc_db_backup:/srv/
