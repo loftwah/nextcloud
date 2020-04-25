@@ -41,10 +41,10 @@ services:
       resources:
         limits:
           cpus: '2'
-          memory: 200M
+          memory: 400M
         reservations:
-          memory: 200M
-          cpus: '0.25'
+          memory: 300M
+          cpus: '1'
       update_config:
         order: start-first
         failure_action: rollback
