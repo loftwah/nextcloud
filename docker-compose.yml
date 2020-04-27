@@ -80,7 +80,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     secrets:
-      - db_pwd 
+      - db_pwd
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_pwd
       MYSQL_DATABASE: owncloud
@@ -131,7 +131,7 @@ services:
 #      - /etc/timezone:/etc/timezone:ro
 #      - /etc/localtime:/etc/localtime:ro
 #    secrets:
-#      - db_pwd 
+#      - db_pwd
 #    environment:
 #      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_pwd
 #      MYSQL_DATABASE: owncloud
@@ -146,7 +146,7 @@ networks:
   int_net:
     external:
       name: int_net
-  nc_net: 
+  nc_net:
 
 secrets:
   db_pwd:
