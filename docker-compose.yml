@@ -44,7 +44,7 @@ services:
           memory: 400M
         reservations:
           memory: 300M
-          cpus: '1'
+          cpus: '0.25'
       update_config:
         order: start-first
         failure_action: rollback
