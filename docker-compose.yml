@@ -89,9 +89,13 @@ services:
     networks:
       - nc_net
     healthcheck:
-      test: >
-        ["CMD", "mysqladmin", "ping",
-        "-u", "root", "-p$$(cat /var/run/secrets/db_pwd)"]
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -u
+        - root
+        - -p$$(cat /var/run/secrets/db_pwd)
 
 #  web-nc:
 #    image: nextcloud:15
