@@ -44,7 +44,7 @@ services:
           memory: 400M
         reservations:
           memory: 300M
-          cpus: '0.25'
+          cpus: '0.5'
       update_config:
         order: start-first
         failure_action: rollback
@@ -73,7 +73,7 @@ services:
           memory: 200M
         reservations:
           memory: 200M
-          cpus: '0.25'
+          cpus: '0.5'
     volumes:
       - nextc_db:/var/lib/mysql/
       - nextc_db_backup:/srv/
