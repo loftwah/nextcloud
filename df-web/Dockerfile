@@ -1,16 +1,16 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 ENV TERM=xterm
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PHP_INI=/etc/php/7.2/apache2/php.ini
+ENV PHP_INI=/etc/php/7.4/apache2/php.ini
 
 COPY ./apache-entrypoint.sh /
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends apache2 libapache2-mod-php7.2 libapache2-mod-security2 \
-    curl ca-certificates openssl wget bzip2 php7.2-gd php7.2-json php7.2-mysql php7.2-curl php7.2-mbstring \
-    php7.2-intl php-imagick php7.2-xml php7.2-zip php-bcmath php-gmp \
-    php7.2-curl php-mime-type php7.2-bz2 php7.2-intl php-imagick php7.2-cli \
+    && apt-get install -y --no-install-recommends apache2 libapache2-mod-php libapache2-mod-security2 \
+    curl ca-certificates openssl wget bzip2 php-gd php-json php-mysql php-curl php-mbstring \
+    php-intl php-imagick php-xml php-zip php-bcmath php-gmp \
+    php-curl php-mime-type php-bz2 php-intl php-imagick php-cli \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/*
 
