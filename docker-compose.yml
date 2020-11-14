@@ -125,6 +125,7 @@ volumes:
   nextc_nginx-rp:
   nextc_fpm:
   nextc_certbot_root:
+  nextc_redis:
   data:
   apps:
   config:
