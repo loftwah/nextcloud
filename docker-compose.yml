@@ -1,3 +1,4 @@
+---
 version: "3.7"
 
 services:
@@ -28,8 +29,8 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - nextc_certbot_root:/var/www/
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://localhost"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1/healthz"]
     networks:
       - nc_net
       - int_net
