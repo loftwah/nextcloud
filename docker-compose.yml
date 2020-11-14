@@ -107,8 +107,8 @@ services:
 
 networks:
   int_net:
-    external:
-      name: int_net
+    external: true
+    name: int_net
   nc_net:
 
 secrets:
