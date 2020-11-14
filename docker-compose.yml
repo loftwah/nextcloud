@@ -98,57 +98,12 @@ services:
         - root
         - -p$$(cat /var/run/secrets/db_pwd)
 
-#  web-nc:
-#    image: nextcloud:15
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: '3'
-#          memory: 400M
-#      update_config:
-#        order: start-first
-#        failure_action: rollback
-#      restart_policy:
-#        condition: on-failure
-#    volumes:
-#      - data:/var/www/html/data/
-#      - apps:/var/www/html/apps/
-#      - config:/var/www/html/config/
-#      - etc_apache2:/etc/apache2/
-#      - log_web:/var/log/
-#      - /etc/timezone:/etc/timezone:ro
-#      - /etc/localtime:/etc/localtime:ro
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://localhost"]
-#    networks:
-#      - nc_net
-#      - int_net
-
-#  db-nc:
-#    image: mariadb:10.4
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: '3'
-#          memory: 300M
-#    volumes:
-#      - db:/var/lib/mysql/
-#      - db_backup:/srv/
-#      - /etc/timezone:/etc/timezone:ro
-#      - /etc/localtime:/etc/localtime:ro
-#    secrets:
-#      - db_pwd
-#    environment:
-#      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_pwd
-#      MYSQL_DATABASE: owncloud
-#      MYSQL_USER: ownc7
-#      MYSQL_PASSWORD_FILE: /run/secrets/db_pwd
-#    networks:
-#      - nc_net
-#    healthcheck:
-#      test: >
-#        ["CMD", "mysqladmin", "ping",
-#        "-u", "root", "-p$$(cat /var/run/secrets/db_pwd)"]
+  redis:
+    image: 'bitnami/redis:6.0'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - nextc_redis:/bitnami/redis/data
 
 networks:
   int_net:
