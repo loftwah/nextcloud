@@ -104,6 +104,8 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - nextc_redis:/bitnami/redis/data
+    networks:
+      - nc_net
 
 networks:
   int_net:
