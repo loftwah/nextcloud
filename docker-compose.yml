@@ -103,11 +103,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: 50M
         reservations:
-          memory: 200M
-          cpus: '0.5'
+          memory: 50M
+          cpus: '0.25'
       update_config:
         order: start-first
         failure_action: rollback
